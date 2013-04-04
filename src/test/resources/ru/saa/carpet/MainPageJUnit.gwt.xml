@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='ru.saa.carpet.MainPage' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/MainPage/greet" class="ru.saa.carpet.server.GreetingServiceImpl" />
+
+</module>
