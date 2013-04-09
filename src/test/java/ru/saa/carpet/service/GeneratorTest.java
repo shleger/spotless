@@ -23,7 +23,7 @@ public class GeneratorTest {
 
 //        System.out.print(r.nextInt(10) + " ");
 //            System.out.println();
-        System.out.print((int)(10*r.nextGaussian()) + " ");
+        System.out.print((int)(10*r.nextGaussian()) + " "); //TODO saa rm
 
         }
 
