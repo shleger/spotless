@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -15,11 +16,20 @@ import java.util.Scanner;
  */
 public class SpotlessCarpet {
 
+    /**
+     * Array for init data
+     */
     private List<List<Integer>> matrix = new ArrayList<List<Integer>>();
+
+    /**
+     * Array for founded vertices
+     */
+    private List<List<Integer>> vertices = new ArrayList<List<Integer>>();
 
 
     public SpotlessCarpet(String dataFilePath) throws IOException {
 
+        System.out.println("____SpotlessCarpet______");
 
         Scanner sc = new Scanner(new BufferedReader(new FileReader(dataFilePath)));
 
@@ -51,17 +61,55 @@ public class SpotlessCarpet {
 
     }
 
-    public void calcDrops() {
+    public Map<Integer, Integer> calcDrops() {
+
+        System.out.println("____calcDrops___________");
+        int counter = 0;
+        List<Integer> preIntegers = null;
+
+        for (int i = 0; i < matrix.size(); i++) {
+
+            List<Integer> integers = matrix.get(0);
+
+            if (i > 0)
+                preIntegers = matrix.get(i - 1);
+
+            List<Integer> v = new ArrayList<Integer>();
+
+            for (int j = 0; j < integers.size(); j++) {
+
+                if (j == 0 && i == 0) {
+                    v.add(++counter);
+                    continue;
+                }
 
 
-//        for (Integer[] row : matrix) {
-//            for (Integer e : row) {
-//                System.out.print(e);
-//            }
-//            System.out.println();
-//        }
+                if (i != 0 && integers.get(j) == preIntegers.get(j)) {
+                    v.add(vertices.get(i-1).get(j));
+                    continue;
+                }
+
+
+                if (j > 0
+                        && integers.get(j)
+                        != integers.get(j - 1)) {
+
+                    v.add(++counter);
+                    continue;
+                } else {
+                    v.add(counter);
+                }
+
+
+            }
+            vertices.add(v);
+
+            System.out.println(v);
+
+        }
+
+
+        return null; //TODO saa fill
 
     }
-
-
 }
