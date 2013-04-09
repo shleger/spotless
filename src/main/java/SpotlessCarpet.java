@@ -15,23 +15,26 @@ import java.util.Scanner;
  */
 public class SpotlessCarpet {
 
-    private BufferedReader bufferedReader;
-    private List<Integer[]> matrix;
+    private List<List<Integer>> matrix = new ArrayList<List<Integer>>();
 
 
-    public SpotlessCarpet(String dataFile) throws IOException {
+    public SpotlessCarpet(String dataFilePath) throws IOException {
 
-        bufferedReader = new BufferedReader(new FileReader(dataFile));
-        matrix = new ArrayList<Integer[]>();
 
-        String line = null;
-        while ((line = bufferedReader.readLine()) != null) {
-            Integer[] row = new Integer[line.length()];
-            for (int i = 0; i < line.length(); i++) {
-                row[i] = Integer.valueOf(line.charAt(i));
+        Scanner sc = new Scanner(new BufferedReader(new FileReader(dataFilePath)));
+
+
+        while (sc.hasNext() && sc.hasNextInt()) {
+            String line = sc.nextLine();
+            List<Integer> row = new ArrayList<Integer>();
+
+            for (byte b : line.getBytes()) {
+                row.add(Integer.parseInt(Character.toString((char) b)));
             }
+
             matrix.add(row);
 
+            System.out.println(row);
         }
     }
 
@@ -48,9 +51,15 @@ public class SpotlessCarpet {
 
     }
 
-    public void calcDrops()  {
+    public void calcDrops() {
 
-        System.out.println(matrix);
+
+//        for (Integer[] row : matrix) {
+//            for (Integer e : row) {
+//                System.out.print(e);
+//            }
+//            System.out.println();
+//        }
 
     }
 
