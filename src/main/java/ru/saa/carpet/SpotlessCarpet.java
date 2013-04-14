@@ -98,11 +98,14 @@ public class SpotlessCarpet {
                 //compare if we have previous rows and compare  values
                 if (i > 0)
                     if (integers.get(j) == preIntegers.get(j)) {
-                        v.add(vertices.get(i - 1).get(j));
+                        if (j > 0
+                                && integers.get(j)
+                                == integers.get(j - 1)) {
+                            v.add(v.get(j - 1));
+                        } else {
+                            v.add(vertices.get(i - 1).get(j));
+                        }
                         continue;
-                    } else {
-//                        v.add(1);
-//                        continue;
                     }
 
 
