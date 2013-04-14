@@ -1,9 +1,9 @@
-package ru.saa.carpet;
+package ru.saa.carpet.service;
 
 import Jama.Matrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.saa.carpet.service.CarpetUtils;
+import ru.saa.carpet.util.CarpetUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,7 +15,6 @@ import java.util.*;
  * User: saa
  * Date: 4/14/13
  * Time: 11:06 AM
- * To change this template use File | Settings | File Templates.
  */
 public class SpotlessCarpet {
 
@@ -59,27 +58,9 @@ public class SpotlessCarpet {
         }
     }
 
-    public static void main(String[] args) throws IOException {
 
 
-        if (args.length == 0) {
-            System.out.println("usage: " + SpotlessCarpet.class.getSimpleName() + " dataFile");
-            return;
-        }
-
-        SpotlessCarpet carpet = new SpotlessCarpet(args[0]);
-
-
-        Matrix m =  CarpetUtils.buildReachabilityMatrix(carpet.calcSpots());
-
-        int drops = carpet.calcDrops(m);
-
-        CarpetUtils.printMatrix(m);
-
-
-    }
-
-    private int calcDrops(Matrix m) {
+    public int calcDrops(Matrix m) {
 
 
         return 0;  //To change body of created methods use File | Settings | File Templates.
@@ -164,7 +145,7 @@ public class SpotlessCarpet {
                 Collections.replaceAll(row, en.getKey(), en.getValue());
             }
             vertices.addAll(row);
-            log.info("{}",row);
+            log.info("{}", row);
         }
     }
 

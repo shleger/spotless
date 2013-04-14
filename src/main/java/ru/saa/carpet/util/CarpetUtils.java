@@ -1,4 +1,4 @@
-package ru.saa.carpet.service;
+package ru.saa.carpet.util;
 
 import Jama.Matrix;
 import org.slf4j.Logger;
@@ -11,7 +11,6 @@ import java.text.NumberFormat;
  * User: saa
  * Date: 4/14/13
  * Time: 23:16 PM
- * To change this template use File | Settings | File Templates.
  */
 public class CarpetUtils {
 

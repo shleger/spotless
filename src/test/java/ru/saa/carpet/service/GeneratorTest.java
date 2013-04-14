@@ -13,7 +13,6 @@ import java.util.Random;
  * User: saa
  * Date: 4/14/13
  * Time: 23:16 PM
- * To change this template use File | Settings | File Templates.
  */
 public class GeneratorTest {
 
