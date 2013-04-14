@@ -3,7 +3,7 @@ package ru.saa.carpet;
 import Jama.Matrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.saa.carpet.service.CarpetService;
+import ru.saa.carpet.service.CarpetUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -143,7 +143,6 @@ public class SpotlessCarpet {
 
         log.info("vertices={}", vertices);
 
-        //todo saa :  equal spots={1=3, 5=4, 8=5}
         Matrix adjMatrix = new Matrix(vertices.size(), vertices.size());
 
         int first, vertex = 0;
@@ -173,17 +172,6 @@ public class SpotlessCarpet {
                 }
 
 
-//                if (jam.size() == 1)
-//                    if (r < spots.size() - 1 && k == jam.get(0)) {
-//                        List<Integer> jamFul = getSettedRow(spots.get(r + 1));
-//                        if (jamFul.size() == 1 && jam.get(0) != jamFul.get(0)) {
-//                            adjMatrix.set(vertex, verticesList.indexOf(jamFul.get(0)), 1);
-//                        }
-//                    }else if(r == spots.size()){
-//                       // List<Integer> jamFul = getSettedRow(spots.get(r - 1));
-//
-//                    }
-
                 if (jam.size() == 1)
                     if (r < spots.size() - 1 && k.equals( jam.get(0))) {
                         List<Integer> jamFul = getSettedRow(spots.get(r + 1));
@@ -208,7 +196,7 @@ public class SpotlessCarpet {
 
 
         }
-        CarpetService.printMatrix(adjMatrix);
+        CarpetUtils.printMatrix(adjMatrix);
         return adjMatrix;
     }
 

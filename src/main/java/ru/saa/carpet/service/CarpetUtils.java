@@ -13,10 +13,10 @@ import java.text.NumberFormat;
  * Time: 23:16 PM
  * To change this template use File | Settings | File Templates.
  */
-public class CarpetService {
+public class CarpetUtils {
 
 
-    final static Logger log = LoggerFactory.getLogger(CarpetService.class);
+    final static Logger log = LoggerFactory.getLogger(CarpetUtils.class);
 
 
     private static NumberFormat nf = NumberFormat.getIntegerInstance();
@@ -27,12 +27,12 @@ public class CarpetService {
         log.info("------------------");
     }
 
-    private int exp = 0;
-    Matrix mul = null;
-    Matrix sum = null;
-    Matrix multiplier = null;
+    private static int exp = 0;
+    private static Matrix mul = null;
+    private static Matrix sum = null;
+    private static Matrix multiplier = null;
 
-    public Matrix buildReachabilityMatrix(Matrix m) {
+    public static Matrix buildReachabilityMatrix(Matrix m) {
 
         if (exp == 0) {
             sum = multiplier = m;
