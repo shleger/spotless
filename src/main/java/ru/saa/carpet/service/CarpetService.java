@@ -16,12 +16,12 @@ import java.text.NumberFormat;
 public class CarpetService {
 
 
-    final Logger log = LoggerFactory.getLogger(CarpetService.class);
+    final static Logger log = LoggerFactory.getLogger(CarpetService.class);
 
 
     private static NumberFormat nf = NumberFormat.getIntegerInstance();
 
-    public void printMatrix(Matrix m) {
+    public static void printMatrix(Matrix m) {
         log.info("------------------");
         m.print(nf, m.getRowDimension());
         log.info("------------------");

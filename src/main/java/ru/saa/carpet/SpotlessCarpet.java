@@ -1,7 +1,9 @@
 package ru.saa.carpet;
 
+import Jama.Matrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.saa.carpet.service.CarpetService;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -27,12 +29,13 @@ public class SpotlessCarpet {
     /**
      * Map for marked duplicated spots
      */
-    private Map<Integer,Integer> dupSpots = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> dupSpots = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer[]> vertices = new HashMap<Integer, Integer[]>();
 
     /**
-     * Array for founded vertices
+     * Array for founded spots
      */
-    private List<List<Integer>> vertices = new ArrayList<List<Integer>>();
+    private List<List<Integer>> spots = new ArrayList<List<Integer>>();
 
 
     public SpotlessCarpet(String dataFilePath) throws IOException {
@@ -69,10 +72,10 @@ public class SpotlessCarpet {
 
     }
 
-    public Map<Integer, Integer> calcSpots() {
+    public Matrix calcSpots() {
 
         log.info("____calcSpots___________");
-        int counter = 1;
+        int counter = 0;
         List<Integer> preIntegers = null;
 
         for (int i = 0; i < matrix.size(); i++) {
@@ -99,13 +102,13 @@ public class SpotlessCarpet {
                                 && integers.get(j)
                                 == integers.get(j - 1)) {
                             v.add(v.get(j - 1));
-                            if (v.get(j) != vertices.get(i - 1).get(j)) {
-                                log.debug("equal spots {}=={} ", v.get(j), vertices.get(i - 1).get(j));
-                                dupSpots.put(v.get(j), vertices.get(i - 1).get(j));
+                            if (v.get(j) != spots.get(i - 1).get(j)) {
+                                log.debug("equal spots {}=={} ", v.get(j), spots.get(i - 1).get(j));
+                                dupSpots.put(v.get(j), spots.get(i - 1).get(j));
                             }
 
                         } else {
-                            v.add(vertices.get(i - 1).get(j));
+                            v.add(spots.get(i - 1).get(j));
                         }
                         continue;
                     }
@@ -123,14 +126,42 @@ public class SpotlessCarpet {
 
 
             }
-            vertices.add(v);
-
+            spots.add(v);
             log.info("{}", v);
 
         }
 
+        log.info("equal spots={}", dupSpots);
+        int matrixSize = counter - dupSpots.size();
+        log.info("adjMatrix size={}", matrixSize);
 
-        return null; //TODO saa fill
+
+        //todo saa :  equal spots={1=3, 5=4, 8=5}
+        Matrix adjMatrix = new Matrix(matrixSize, matrixSize);
+
+        int first, last;
+        for (int k = 0; k < matrixSize; k++) {
+            for (List<Integer> row : spots) {
+                if ((first = row.indexOf(k)) >= 0 | (last = row.lastIndexOf(k)) >= 0) {
+
+                    if (first ==0 && first == last ) {
+
+                        log.info("k={}, first={}, last ={},", k, first, last);
+
+                        log.info("next={}", row.get(first + 1));
+                        adjMatrix.set(k,row.get(first+1) ,1);
+                    }
+
+
+                }
+            }
+
+        }
+
+        CarpetService.printMatrix(adjMatrix);
+
+
+        return adjMatrix;
 
     }
 }
