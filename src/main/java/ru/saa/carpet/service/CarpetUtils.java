@@ -15,6 +15,10 @@ import java.text.NumberFormat;
  */
 public class CarpetUtils {
 
+
+    final static Logger log = LoggerFactory.getLogger(CarpetUtils.class);
+
+
     private static NumberFormat nf = NumberFormat.getIntegerInstance();
 
     public static void printMatrix(Matrix m) {
@@ -32,7 +36,9 @@ public class CarpetUtils {
             sum = multiplier = m;
         }
 
-        printMatrix(m); //print to std output
+        if (log.isDebugEnabled())
+            printMatrix(m); //print to std output
+
         if (exp != m.getRowDimension() - 1) {
             exp++;
             mul = m.times(multiplier);

@@ -40,7 +40,7 @@ public class SpotlessCarpet {
 
     public SpotlessCarpet(String dataFilePath) throws IOException {
 
-        log.info("____SpotlessCarpet______");
+        log.info("____SpotfullCarpet______");
 
         Scanner sc = new Scanner(new BufferedReader(new FileReader(dataFilePath)));
 
@@ -70,14 +70,105 @@ public class SpotlessCarpet {
         SpotlessCarpet carpet = new SpotlessCarpet(args[0]);
 
 
-        CarpetUtils.buildReachabilityMatrix(carpet.calcSpots());
+        Matrix m =  CarpetUtils.buildReachabilityMatrix(carpet.calcSpots());
+
+        int drops = carpet.calcDrops(m);
+
+        CarpetUtils.printMatrix(m);
 
 
+    }
+
+    private int calcDrops(Matrix m) {
+
+
+        return 0;  //To change body of created methods use File | Settings | File Templates.
     }
 
     public Matrix calcSpots() {
 
         log.info("____calcSpots___________");
+        markSpots();
+        replaceDuplicatedSpots();
+
+        log.info("vertices={}", vertices);
+        Matrix adjMatrix = buildAdjustmentMatrix();
+
+        if (log.isDebugEnabled())
+            CarpetUtils.printMatrix(adjMatrix);
+        return adjMatrix;
+    }
+
+    private Matrix buildAdjustmentMatrix() {
+        Matrix adjMatrix = new Matrix(vertices.size(), vertices.size());
+
+        int first, vertex = 0;
+
+        List<Integer> verticesList = new ArrayList<Integer>(vertices);
+
+
+        for (Integer k : verticesList) {
+            for (int r = 0; r < spots.size(); r++) {
+
+                log.debug("k={},  row={}", k, spots.get(r));
+
+                List<Integer> jam = getSettedRow(spots.get(r));
+
+                log.debug("gem:{}", jam);
+
+                first = jam.indexOf(k);
+
+
+                if (first > 0 && jam.size() > first - 1) {
+                    adjMatrix.set(vertex, verticesList.indexOf(jam.get(first - 1)), 1);
+                }
+
+                if (first >= 0 && jam.size() > first + 1) {
+                    adjMatrix.set(vertex, verticesList.indexOf(jam.get(first + 1)), 1);
+
+                }
+
+
+                if (jam.size() == 1)
+                    if (r < spots.size() - 1 && k.equals(jam.get(0))) {
+                        List<Integer> jamFul = getSettedRow(spots.get(r + 1));
+                        jamFul.remove(k);
+                        for (Integer point : jamFul) {
+                            adjMatrix.set(vertex, verticesList.indexOf(point), 1);
+
+                        }
+                    } else if (r == spots.size() - 1 && k.equals(jam.get(0))) {
+                        List<Integer> jamFul = getSettedRow(spots.get(r - 1));
+                        jamFul.remove(k);
+                        for (Integer point : jamFul) {
+                            adjMatrix.set(vertex, verticesList.indexOf(point), 1);
+
+                        }
+
+                    }
+
+            }
+
+            vertex++;
+
+
+        }
+        return adjMatrix;
+    }
+
+    private void replaceDuplicatedSpots() {
+        log.info("____replacedSpots_______");
+        //replace duplicated marked spots
+        for (List<Integer> row : spots) {
+            for (Map.Entry<Integer, Integer> en : dupSpots.entrySet()) {
+                Collections.replaceAll(row, en.getKey(), en.getValue());
+            }
+            vertices.addAll(row);
+            log.info("{}",row);
+        }
+    }
+
+    private void markSpots() {
         int counter = 0;
         List<Integer> preIntegers = null;
 
@@ -106,7 +197,7 @@ public class SpotlessCarpet {
                                 && integers.get(j)
                                 .equals(integers.get(j - 1))) {
                             v.add(v.get(j - 1));
-                            if (!v.get(j) .equals( spots.get(i - 1).get(j))) {
+                            if (!v.get(j).equals(spots.get(i - 1).get(j))) {
                                 log.debug("equal spots {}=={} ", v.get(j), spots.get(i - 1).get(j));
                                 dupSpots.put(v.get(j), spots.get(i - 1).get(j));
                             }
@@ -121,7 +212,7 @@ public class SpotlessCarpet {
                     v.add(++counter);
                 else if (j > 0
                         && !integers.get(j)
-                        .equals( integers.get(j - 1))) {
+                        .equals(integers.get(j - 1))) {
                     v.add(++counter);
                 } else {
                     v.add(v.get(j - 1));
@@ -133,74 +224,6 @@ public class SpotlessCarpet {
             log.info("{}", v);
 
         }
-
-
-        //replace duplicated marked spots
-        for (List<Integer> row : spots) {
-            for (Map.Entry<Integer, Integer> en : dupSpots.entrySet()) {
-                Collections.replaceAll(row, en.getKey(), en.getValue());
-            }
-            vertices.addAll(row);
-            System.out.println(row);
-        }
-
-        log.info("vertices={}", vertices);
-
-        Matrix adjMatrix = new Matrix(vertices.size(), vertices.size());
-
-        int first, vertex = 0;
-
-        List<Integer> verticesList = new ArrayList<Integer>(vertices);
-
-
-        for (Integer k : verticesList) {
-            for (int r = 0; r < spots.size(); r++) {
-
-                log.info("k={},  row={}", k, spots.get(r));
-
-                List<Integer> jam = getSettedRow(spots.get(r));
-
-                log.info("gem:{}", jam);
-
-                first = jam.indexOf(k);
-
-
-                if (first > 0 && jam.size() > first - 1) {
-                    adjMatrix.set(vertex, verticesList.indexOf(jam.get(first - 1)), 1);
-                }
-
-                if (first >= 0 && jam.size() > first + 1) {
-                    adjMatrix.set(vertex, verticesList.indexOf(jam.get(first + 1)), 1);
-
-                }
-
-
-                if (jam.size() == 1)
-                    if (r < spots.size() - 1 && k.equals( jam.get(0))) {
-                        List<Integer> jamFul = getSettedRow(spots.get(r + 1));
-                        jamFul.remove(k);
-                        for (Integer point : jamFul) {
-                            adjMatrix.set(vertex, verticesList.indexOf(point), 1);
-
-                        }
-                    } else if (r == spots.size() - 1 && k.equals( jam.get(0))) {
-                        List<Integer> jamFul = getSettedRow(spots.get(r - 1));
-                        jamFul.remove(k);
-                        for (Integer point : jamFul) {
-                            adjMatrix.set(vertex, verticesList.indexOf(point), 1);
-
-                        }
-
-                    }
-
-            }
-
-            vertex++;
-
-
-        }
-        CarpetUtils.printMatrix(adjMatrix);
-        return adjMatrix;
     }
 
     private List<Integer> getSettedRow(List<Integer> row) {
