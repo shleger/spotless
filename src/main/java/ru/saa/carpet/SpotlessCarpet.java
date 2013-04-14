@@ -29,8 +29,8 @@ public class SpotlessCarpet {
     /**
      * Map for marked duplicated spots
      */
-    private Map<Integer, Integer> dupSpots = new HashMap<Integer, Integer>();
-    private Map<Integer, Integer[]> vertices = new HashMap<Integer, Integer[]>();
+    private TreeMap<Integer, Integer> dupSpots = new TreeMap<Integer, Integer>(Collections.reverseOrder());
+    private TreeSet<Integer> vertices = new TreeSet<Integer>();
 
     /**
      * Array for founded spots
@@ -131,37 +131,47 @@ public class SpotlessCarpet {
 
         }
 
-        log.info("equal spots={}", dupSpots);
-        int matrixSize = counter - dupSpots.size();
-        log.info("adjMatrix size={}", matrixSize);
 
+        //replace duplicated marked spots
+        for (List<Integer> row : spots) {
+            for (Map.Entry<Integer, Integer> en : dupSpots.entrySet()) {
+                Collections.replaceAll(row, en.getKey(), en.getValue());
+            }
+            vertices.addAll(row);
+            System.out.println(row);
+        }
+
+        log.info("vertices={}", vertices);
 
         //todo saa :  equal spots={1=3, 5=4, 8=5}
-        Matrix adjMatrix = new Matrix(matrixSize, matrixSize);
+        Matrix adjMatrix = new Matrix(vertices.size(), vertices.size());
 
-        int first, last;
-        for (int k = 0; k < matrixSize; k++) {
+        int first, last, vertex = 0;
+
+        for (Iterator<Integer> iterator = vertices.iterator(); iterator.hasNext(); ) {
+            Integer k = iterator.next();
+
             for (List<Integer> row : spots) {
                 if ((first = row.indexOf(k)) >= 0 | (last = row.lastIndexOf(k)) >= 0) {
 
-                    if (first ==0 && first == last ) {
 
-                        log.info("k={}, first={}, last ={},", k, first, last);
+                    log.info("k={}, first={}, last ={},", k, first, last);
 
-                        log.info("next={}", row.get(first + 1));
-                        adjMatrix.set(k,row.get(first+1) ,1);
-                    }
+                    log.info("next={}", row.get(first + 1));
+                   adjMatrix.set(vertex, row.get(first + 1), 1);
 
 
                 }
             }
 
+            vertex++;
+
+            CarpetService.printMatrix(adjMatrix);
+
+
         }
-
-        CarpetService.printMatrix(adjMatrix);
-
-
         return adjMatrix;
-
     }
+
 }
+
