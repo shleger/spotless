@@ -1,6 +1,7 @@
 package ru.saa.carpet;
 
 import Jama.Matrix;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.saa.carpet.service.CarpetService;
@@ -149,48 +150,44 @@ public class SpotlessCarpet {
         int first, last, vertex = 0;
 
         List<Integer> verticesList = new ArrayList<Integer>(vertices);
-
-        for (Integer k: verticesList ) {
-            for (List<Integer> row : spots) {
-                log.info("vertices_row{}",row);
-                if ((first = row.indexOf(k)) >= 0 | (last = row.lastIndexOf(k)) >= 0) {
-
-                    log.info("k={}, first={}, last ={},", k, first, last);
-
-                    Set<Integer> incl = new HashSet<Integer>(row);
-
-                    incl.remove(k);
-
-                    log.info("incl={}", incl);
-
-                    for(Integer in: incl){
-
-                    adjMatrix.set(vertex, verticesList.indexOf(in), 1);
-
-                    }
-
-               /*
-                    if (first > 0 ) {
-                        log.info("pre={}", verticesList.indexOf(row.get(first - 1)));
-                        adjMatrix.set(vertex, verticesList.indexOf(row.get(first - 1)), 1);
-
-                    }
-                    if (last < (row.size() - 1)) {
-                        log.info("post={}", verticesList.indexOf(row.get(last + 1)));
-                        adjMatrix.set(vertex, verticesList.indexOf(row.get(last + 1)), 1);
-                    }
+        Map<Integer, List<Integer>> graph = new HashMap<Integer, List<Integer>>();
 
 
-                    else if (first == 0  ) {
-                        log.info("pre={}", verticesList.indexOf(row.get(first + 1)));
-                        adjMatrix.set(vertex, verticesList.indexOf(row.get(first + 1)), 1);
+        for (Integer k : verticesList) {
+            for (int r = 0; r < spots.size(); r++) {
+
+                log.info("k={},  row={}", k, spots.get(r));
+
+                List<Integer> jam = getSettedRow(spots.get(r));
+
+                log.info("gem:{}", jam);
+
+                first = jam.indexOf(k);
+
+
+                if (first > 0 && jam.size() > first - 1) {
+                    adjMatrix.set(vertex, verticesList.indexOf(jam.get(first - 1)), 1);
+                }
+
+                if (first >= 0 && jam.size() > first + 1) {
+                    adjMatrix.set(vertex, verticesList.indexOf(jam.get(first + 1)), 1);
+
+                }
+
+
+                if (jam.size() == 1 && r < spots.size() - 1 && k == jam.get(0)) {
+
+                    List<Integer> jamFul = getSettedRow(spots.get(r + 1));
+
+                    if (jamFul.size() == 1 && jam.get(0) != jamFul.get(0)) {
+                        adjMatrix.set(vertex, verticesList.indexOf(jamFul.get(0)), 1);
 
                     }
 
-                 */
 
 
                 }
+
             }
 
             vertex++;
@@ -199,6 +196,11 @@ public class SpotlessCarpet {
         }
         CarpetService.printMatrix(adjMatrix);
         return adjMatrix;
+    }
+
+    private List<Integer> getSettedRow(List<Integer> row) {
+        return new ArrayList<Integer>(new LinkedHashSet<Integer>(row));
+
     }
 
 }
