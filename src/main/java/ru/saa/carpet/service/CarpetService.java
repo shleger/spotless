@@ -1,27 +1,30 @@
 package ru.saa.carpet.service;
 
 import Jama.Matrix;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.NumberFormat;
 
 /**
  * Created with IntelliJ IDEA.
  * User: saa
- * Date: 4/4/13
+ * Date: 4/14/13
  * Time: 23:16 PM
  * To change this template use File | Settings | File Templates.
  */
 public class CarpetService {
 
 
+    final Logger log = LoggerFactory.getLogger(CarpetService.class);
 
 
     private static NumberFormat nf = NumberFormat.getIntegerInstance();
 
     public void printMatrix(Matrix m) {
-        System.out.println("------------------");
+        log.info("------------------");
         m.print(nf, m.getRowDimension());
-        System.out.println("------------------");
+        log.info("------------------");
     }
 
     private int exp = 0;

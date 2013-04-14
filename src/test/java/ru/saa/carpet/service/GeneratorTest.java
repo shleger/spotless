@@ -2,6 +2,8 @@ package ru.saa.carpet.service;
 
 import Jama.Matrix;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.NumberFormat;
 import java.util.Random;
@@ -15,6 +17,7 @@ import java.util.Random;
  */
 public class GeneratorTest {
 
+    final Logger log = LoggerFactory.getLogger(GeneratorTest.class);
 
     @Test
     public void normalDistribution() {
@@ -23,9 +26,9 @@ public class GeneratorTest {
 
         for (int i = 0; i < 10; i++) {
 
-//        System.out.print(r.nextInt(10) + " ");
-//            System.out.println();
-            System.out.print((int) (10 * r.nextGaussian()) + " "); //TODO saa rm
+//        log.info(r.nextInt(10) + " ");
+//            log.infoln();
+            log.info((int) (10 * r.nextGaussian()) + " "); //TODO saa rm
 
         }
 
@@ -73,7 +76,6 @@ public class GeneratorTest {
         printMatrix(a6);
 
 
-        System.out.println("fin:");
         fin = a.plus(a2).plus(a3).plus(a4).plus(a5).plus(a6);
         printMatrix(fin);
 
@@ -116,7 +118,6 @@ public class GeneratorTest {
         printMatrix(a7);
 
 
-        System.out.println("fin:");
         fin = a.plus(a2).plus(a3).plus(a4).plus(a5).plus(a6).plus(a7);
         printMatrix(fin);
 
@@ -175,6 +176,7 @@ public class GeneratorTest {
 
     @Test
     public void matrixMultiplyOrGraph() {
+        log.info("start");
 
         double[][] mat = {{0, 1, 1, 0}, {0, 0, 0, 0}, {0, 1, 0, 1}, {0, 0, 1, 0}};
 
@@ -197,7 +199,6 @@ public class GeneratorTest {
 
         printMatrix(fin);
 
-        System.out.println("create:-------");
         fin = buildReachabilityMatrix(a);
 
         printMatrix(fin);
