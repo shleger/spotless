@@ -50,7 +50,7 @@ public class SpotlessCarpet {
 
             matrix.add(row);
 
-            log.info(""+row);
+            log.info("{}",row);
         }
     }
 
@@ -110,7 +110,7 @@ public class SpotlessCarpet {
             }
             vertices.add(v);
 
-            log.info(""+v);
+            log.info("{}",v);
 
         }
 
