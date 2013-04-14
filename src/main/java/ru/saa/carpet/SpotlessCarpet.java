@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,6 +23,11 @@ public class SpotlessCarpet {
      * Array for init data
      */
     private List<List<Integer>> matrix = new ArrayList<List<Integer>>();
+
+    /**
+     * Map for marked duplicated spots
+     */
+    private Map<Integer,Integer> dupSpots = new HashMap<Integer, Integer>();
 
     /**
      * Array for founded vertices
@@ -98,8 +100,8 @@ public class SpotlessCarpet {
                                 == integers.get(j - 1)) {
                             v.add(v.get(j - 1));
                             if (v.get(j) != vertices.get(i - 1).get(j)) {
-
-                                System.out.println("recon: " + vertices.get(i - 1).get(j) + ", conn: " + v.get(j));
+                                log.debug("equal spots {}=={} ", v.get(j), vertices.get(i - 1).get(j));
+                                dupSpots.put(v.get(j), vertices.get(i - 1).get(j));
                             }
 
                         } else {
