@@ -29,7 +29,12 @@ public class Main {
 
         int drops = carpet.calcDrops(m);
 
-        CarpetUtils.printMatrix(m);
+        //        CarpetUtils.printMatrix(m);
+
+
+        System.out.println("Minimum number of drops needed to remove all stains " +
+                "from the carpet are: "  + drops );
+
 
 
     }

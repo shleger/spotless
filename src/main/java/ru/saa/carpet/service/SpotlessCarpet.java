@@ -29,6 +29,11 @@ public class SpotlessCarpet {
      * Map for marked duplicated spots
      */
     private TreeMap<Integer, Integer> dupSpots = new TreeMap<Integer, Integer>(Collections.reverseOrder());
+
+
+    /**
+     * Map for founded  vertices
+     */
     private TreeSet<Integer> vertices = new TreeSet<Integer>();
 
     /**
@@ -62,8 +67,27 @@ public class SpotlessCarpet {
 
     public int calcDrops(Matrix m) {
 
+        List<Integer> maxPaths = new ArrayList<Integer>();
 
-        return 0;  //To change body of created methods use File | Settings | File Templates.
+
+
+        for(double [] rows: m.getArray()){
+            int sum = 0;
+            for (double  d: rows){
+                sum+=d;
+            }
+            maxPaths.add(sum);
+        }
+
+        log.info("sums={}" + maxPaths);
+
+        int maxIndex = maxPaths.indexOf(Collections.max(maxPaths));
+        int minIndex = maxPaths.indexOf(Collections.min(maxPaths));
+
+        log.info("max={}, min={}" ,maxIndex,minIndex );
+
+
+        return maxIndex - minIndex;
     }
 
     public Matrix calcSpots() {
