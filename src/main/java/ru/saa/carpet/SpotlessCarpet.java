@@ -148,17 +148,46 @@ public class SpotlessCarpet {
 
         int first, last, vertex = 0;
 
-        for (Iterator<Integer> iterator = vertices.iterator(); iterator.hasNext(); ) {
-            Integer k = iterator.next();
+        List<Integer> verticesList = new ArrayList<Integer>(vertices);
 
+        for (Integer k: verticesList ) {
             for (List<Integer> row : spots) {
+                log.info("vertices_row{}",row);
                 if ((first = row.indexOf(k)) >= 0 | (last = row.lastIndexOf(k)) >= 0) {
-
 
                     log.info("k={}, first={}, last ={},", k, first, last);
 
-                    log.info("next={}", row.get(first + 1));
-                   adjMatrix.set(vertex, row.get(first + 1), 1);
+                    Set<Integer> incl = new HashSet<Integer>(row);
+
+                    incl.remove(k);
+
+                    log.info("incl={}", incl);
+
+                    for(Integer in: incl){
+
+                    adjMatrix.set(vertex, verticesList.indexOf(in), 1);
+
+                    }
+
+               /*
+                    if (first > 0 ) {
+                        log.info("pre={}", verticesList.indexOf(row.get(first - 1)));
+                        adjMatrix.set(vertex, verticesList.indexOf(row.get(first - 1)), 1);
+
+                    }
+                    if (last < (row.size() - 1)) {
+                        log.info("post={}", verticesList.indexOf(row.get(last + 1)));
+                        adjMatrix.set(vertex, verticesList.indexOf(row.get(last + 1)), 1);
+                    }
+
+
+                    else if (first == 0  ) {
+                        log.info("pre={}", verticesList.indexOf(row.get(first + 1)));
+                        adjMatrix.set(vertex, verticesList.indexOf(row.get(first + 1)), 1);
+
+                    }
+
+                 */
 
 
                 }
@@ -166,10 +195,9 @@ public class SpotlessCarpet {
 
             vertex++;
 
-            CarpetService.printMatrix(adjMatrix);
-
 
         }
+        CarpetService.printMatrix(adjMatrix);
         return adjMatrix;
     }
 
