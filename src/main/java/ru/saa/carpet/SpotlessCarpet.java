@@ -50,7 +50,7 @@ public class SpotlessCarpet {
 
             matrix.add(row);
 
-            log.info("{}",row);
+            log.info("{}", row);
         }
     }
 
@@ -70,7 +70,7 @@ public class SpotlessCarpet {
     public Map<Integer, Integer> calcSpots() {
 
         log.info("____calcDrops___________");
-        int counter = 0;
+        int counter = 1;
         List<Integer> preIntegers = null;
 
         for (int i = 0; i < matrix.size(); i++) {
@@ -84,33 +84,42 @@ public class SpotlessCarpet {
 
             for (int j = 0; j < integers.size(); j++) {
 
+                // assign first value
                 if (j == 0 && i == 0) {
-                    v.add(++counter);
+                    v.add(counter);
                     continue;
                 }
 
+//                if (integers.size() - 1 != j && integers.get(j) == integers.get(j + 1)) {
+//                    v.add(counter);
+//                    continue;
+//                }
 
-                if (i != 0 && integers.get(j) == preIntegers.get(j)) {
-                    v.add(vertices.get(i-1).get(j));
-                    continue;
-                }
+                //compare if we have previous rows and compare  values
+                if (i > 0)
+                    if (integers.get(j) == preIntegers.get(j)) {
+                        v.add(vertices.get(i - 1).get(j));
+                        continue;
+                    } else {
+//                        v.add(1);
+//                        continue;
+                    }
 
 
                 if (j > 0
                         && integers.get(j)
                         != integers.get(j - 1)) {
-
                     v.add(++counter);
                     continue;
                 } else {
-                    v.add(counter);
+                    v.add(v.get(j - 1));
                 }
 
 
             }
             vertices.add(v);
 
-            log.info("{}",v);
+            log.info("{}", v);
 
         }
 
