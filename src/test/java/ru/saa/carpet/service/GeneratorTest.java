@@ -219,13 +219,12 @@ public class GeneratorTest {
 
     public Matrix buildReachabilityMatrix(Matrix m) {
 
-        if(exp==0) {
-            multiplier = m.copy();
-            sum = multiplier.copy();
+        if (exp == 0) {
+            sum = multiplier = m;
         }
 
-        printMatrix(m);
-        if (exp != m.getRowDimension() - 1 ) {
+//        printMatrix(m); //debug print
+        if (exp != m.getRowDimension() - 1) {
             exp++;
             mul = m.times(multiplier);
             sum = sum.plus(mul);
@@ -235,8 +234,4 @@ public class GeneratorTest {
 
     }
 
-//    private Matrix involution(Matrix m, int exponent){
-//        return m.times(m);
-//
-//    }
 }
