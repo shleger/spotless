@@ -1,5 +1,8 @@
 package ru.saa.carpet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,6 +20,8 @@ import java.util.Scanner;
  */
 public class SpotlessCarpet {
 
+    Logger log = LoggerFactory.getLogger(SpotlessCarpet.class);
+
     /**
      * Array for init data
      */
@@ -30,7 +35,7 @@ public class SpotlessCarpet {
 
     public SpotlessCarpet(String dataFilePath) throws IOException {
 
-        System.out.println("____SpotlessCarpet______");
+        log.info("____SpotlessCarpet______");
 
         Scanner sc = new Scanner(new BufferedReader(new FileReader(dataFilePath)));
 
@@ -45,7 +50,7 @@ public class SpotlessCarpet {
 
             matrix.add(row);
 
-            System.out.println(row);
+            log.info(""+row);
         }
     }
 
@@ -64,7 +69,7 @@ public class SpotlessCarpet {
 
     public Map<Integer, Integer> calcDrops() {
 
-        System.out.println("____calcDrops___________");
+        log.info("____calcDrops___________");
         int counter = 0;
         List<Integer> preIntegers = null;
 
@@ -105,7 +110,7 @@ public class SpotlessCarpet {
             }
             vertices.add(v);
 
-            System.out.println(v);
+            log.info(""+v);
 
         }
 
