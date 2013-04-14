@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Created with IntelliJ IDEA.
  * User: saa
- * Date: 4/4/13
+ * Date: 4/14/13
  * Time: 23:16 PM
  * To change this template use File | Settings | File Templates.
  */
@@ -57,7 +57,7 @@ public class GeneratorTest {
         };  //LINE2
 
         Matrix a = new Matrix(mat, mat.length, mat.length);
-        Matrix fin = null;
+        Matrix fin;
         printMatrix(a);
 
         Matrix a2 = a.times(a);
@@ -96,7 +96,7 @@ public class GeneratorTest {
         };  //SPOON
 
         Matrix a = new Matrix(mat, mat.length, mat.length);
-        Matrix fin = null;
+        Matrix fin;
         printMatrix(a);
 
         Matrix a2 = a.times(a);
@@ -129,7 +129,7 @@ public class GeneratorTest {
         double[][] mat = {{0, 1, 1, 1}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}};
 
         Matrix a = new Matrix(mat, 4, 4);
-        Matrix fin = new Matrix(4, 4);
+        Matrix fin ;
         printMatrix(a);
 
         Matrix a2 = a.times(a);
@@ -155,7 +155,7 @@ public class GeneratorTest {
 
         Matrix a = new Matrix(mat, 4, 4);
         Matrix b = new Matrix(mat, 4, 4);
-        Matrix fin = new Matrix(4, 4);
+        Matrix fin ;
         printMatrix(a);
 
         Matrix a2 = a.times(b);
@@ -182,7 +182,7 @@ public class GeneratorTest {
 
         Matrix a = new Matrix(mat, 4, 4);
         Matrix b = new Matrix(mat, 4, 4);
-        Matrix fin = null;
+        Matrix fin;
         printMatrix(a);
 
         Matrix a2 = a.times(b);
@@ -214,9 +214,9 @@ public class GeneratorTest {
     }
 
     private int exp = 0;
-    Matrix mul = null;
-    Matrix sum = null;
-    Matrix multiplier = null;
+    private Matrix mul = null;
+    private Matrix sum = null;
+    private Matrix multiplier = null;
 
     public Matrix buildReachabilityMatrix(Matrix m) {
 
