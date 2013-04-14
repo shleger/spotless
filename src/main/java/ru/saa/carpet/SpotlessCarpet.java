@@ -69,7 +69,7 @@ public class SpotlessCarpet {
 
     public Map<Integer, Integer> calcSpots() {
 
-        log.info("____calcDrops___________");
+        log.info("____calcSpots___________");
         int counter = 1;
         List<Integer> preIntegers = null;
 
@@ -90,26 +90,27 @@ public class SpotlessCarpet {
                     continue;
                 }
 
-//                if (integers.size() - 1 != j && integers.get(j) == integers.get(j + 1)) {
-//                    v.add(counter);
-//                    continue;
-//                }
-
-                //compare if we have previous rows and compare  values
+                //compare if we have previous rows then  compare  values
                 if (i > 0)
                     if (integers.get(j) == preIntegers.get(j)) {
                         if (j > 0
                                 && integers.get(j)
                                 == integers.get(j - 1)) {
                             v.add(v.get(j - 1));
+                            if (v.get(j) != vertices.get(i - 1).get(j)) {
+
+                                System.out.println("recon: " + vertices.get(i - 1).get(j) + ", conn: " + v.get(j));
+                            }
+
                         } else {
                             v.add(vertices.get(i - 1).get(j));
                         }
                         continue;
                     }
 
-
-                if (j > 0
+                if (j == 0)
+                    v.add(++counter);
+                else if (j > 0
                         && integers.get(j)
                         != integers.get(j - 1)) {
                     v.add(++counter);
