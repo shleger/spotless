@@ -63,11 +63,11 @@ public class SpotlessCarpet {
         }
 
         SpotlessCarpet carpet = new SpotlessCarpet(args[0]);
-        carpet.calcDrops();
+        carpet.calcSpots();
 
     }
 
-    public Map<Integer, Integer> calcDrops() {
+    public Map<Integer, Integer> calcSpots() {
 
         log.info("____calcDrops___________");
         int counter = 0;
@@ -75,7 +75,7 @@ public class SpotlessCarpet {
 
         for (int i = 0; i < matrix.size(); i++) {
 
-            List<Integer> integers = matrix.get(0);
+            List<Integer> integers = matrix.get(i);
 
             if (i > 0)
                 preIntegers = matrix.get(i - 1);
