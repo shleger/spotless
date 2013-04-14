@@ -175,18 +175,34 @@ public class SpotlessCarpet {
                 }
 
 
-                if (jam.size() == 1 && r < spots.size() - 1 && k == jam.get(0)) {
+//                if (jam.size() == 1)
+//                    if (r < spots.size() - 1 && k == jam.get(0)) {
+//                        List<Integer> jamFul = getSettedRow(spots.get(r + 1));
+//                        if (jamFul.size() == 1 && jam.get(0) != jamFul.get(0)) {
+//                            adjMatrix.set(vertex, verticesList.indexOf(jamFul.get(0)), 1);
+//                        }
+//                    }else if(r == spots.size()){
+//                       // List<Integer> jamFul = getSettedRow(spots.get(r - 1));
+//
+//                    }
 
-                    List<Integer> jamFul = getSettedRow(spots.get(r + 1));
+                if (jam.size() == 1)
+                    if (r < spots.size() - 1 && k == jam.get(0)) {
+                        List<Integer> jamFul = getSettedRow(spots.get(r + 1));
+                        jamFul.remove(k);
+                        for (Integer point : jamFul) {
+                            adjMatrix.set(vertex, verticesList.indexOf(point), 1);
 
-                    if (jamFul.size() == 1 && jam.get(0) != jamFul.get(0)) {
-                        adjMatrix.set(vertex, verticesList.indexOf(jamFul.get(0)), 1);
+                        }
+                    } else if (r == spots.size() -1) {
+                        List<Integer> jamFul = getSettedRow(spots.get(r - 1));
+                        jamFul.remove(k);
+                        for (Integer point : jamFul) {
+                            adjMatrix.set(vertex, verticesList.indexOf(point), 1);
+
+                        }
 
                     }
-
-
-
-                }
 
             }
 
