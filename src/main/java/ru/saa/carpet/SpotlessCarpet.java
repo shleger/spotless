@@ -1,7 +1,6 @@
 package ru.saa.carpet;
 
 import Jama.Matrix;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.saa.carpet.service.CarpetService;
@@ -98,12 +97,13 @@ public class SpotlessCarpet {
 
                 //compare if we have previous rows then  compare  values
                 if (i > 0)
-                    if (integers.get(j) == preIntegers.get(j)) {
+                    if (integers.get(j)
+                            .equals(preIntegers.get(j))) {
                         if (j > 0
                                 && integers.get(j)
-                                == integers.get(j - 1)) {
+                                .equals(integers.get(j - 1))) {
                             v.add(v.get(j - 1));
-                            if (v.get(j) != spots.get(i - 1).get(j)) {
+                            if (!v.get(j) .equals( spots.get(i - 1).get(j))) {
                                 log.debug("equal spots {}=={} ", v.get(j), spots.get(i - 1).get(j));
                                 dupSpots.put(v.get(j), spots.get(i - 1).get(j));
                             }
@@ -117,10 +117,9 @@ public class SpotlessCarpet {
                 if (j == 0)
                     v.add(++counter);
                 else if (j > 0
-                        && integers.get(j)
-                        != integers.get(j - 1)) {
+                        && !integers.get(j)
+                        .equals( integers.get(j - 1))) {
                     v.add(++counter);
-                    continue;
                 } else {
                     v.add(v.get(j - 1));
                 }
@@ -147,10 +146,9 @@ public class SpotlessCarpet {
         //todo saa :  equal spots={1=3, 5=4, 8=5}
         Matrix adjMatrix = new Matrix(vertices.size(), vertices.size());
 
-        int first, last, vertex = 0;
+        int first, vertex = 0;
 
         List<Integer> verticesList = new ArrayList<Integer>(vertices);
-        Map<Integer, List<Integer>> graph = new HashMap<Integer, List<Integer>>();
 
 
         for (Integer k : verticesList) {
@@ -187,14 +185,14 @@ public class SpotlessCarpet {
 //                    }
 
                 if (jam.size() == 1)
-                    if (r < spots.size() - 1 && k == jam.get(0)) {
+                    if (r < spots.size() - 1 && k.equals( jam.get(0))) {
                         List<Integer> jamFul = getSettedRow(spots.get(r + 1));
                         jamFul.remove(k);
                         for (Integer point : jamFul) {
                             adjMatrix.set(vertex, verticesList.indexOf(point), 1);
 
                         }
-                    } else if (r == spots.size() -1) {
+                    } else if (r == spots.size() - 1 && k == jam.get(0)) {
                         List<Integer> jamFul = getSettedRow(spots.get(r - 1));
                         jamFul.remove(k);
                         for (Integer point : jamFul) {
