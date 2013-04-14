@@ -68,7 +68,10 @@ public class SpotlessCarpet {
         }
 
         SpotlessCarpet carpet = new SpotlessCarpet(args[0]);
-        carpet.calcSpots();
+
+
+        CarpetUtils.buildReachabilityMatrix(carpet.calcSpots());
+
 
     }
 
@@ -180,7 +183,7 @@ public class SpotlessCarpet {
                             adjMatrix.set(vertex, verticesList.indexOf(point), 1);
 
                         }
-                    } else if (r == spots.size() - 1 && k == jam.get(0)) {
+                    } else if (r == spots.size() - 1 && k.equals( jam.get(0))) {
                         List<Integer> jamFul = getSettedRow(spots.get(r - 1));
                         jamFul.remove(k);
                         for (Integer point : jamFul) {
