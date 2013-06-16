@@ -71,5 +71,45 @@ public class SpotlessCarpetTest {
     }
 
 
+    @Test
+    public void problem15() {
+
+
+        double[][] m4x4 =
+                {
+                        {0,1,1,0},
+                        {0,0,0,1},
+                        {0,0,0,1},
+                        {0,0,0,0},
+        };
+
+        double[][] m9x9 =
+                {      // 1 2 3 4 5 6 7 8 9
+                  /*1*/  {0,1,0,1,0,0,0,0,0},
+                  /*2*/  {0,0,1,0,1,0,0,0,0},
+                  /*3*/  {0,0,0,0,0,1,0,0,0},
+                  /*4*/  {0,0,0,0,1,0,1,0,0},
+                  /*5*/  {0,0,0,0,0,1,0,1,0},
+                  /*6*/  {0,0,0,0,0,0,0,0,1},
+                  /*7*/  {0,0,0,0,0,0,0,1,0},
+                  /*8*/  {0,0,0,0,0,0,0,0,1},
+                  /*9*/  {0,0,0,0,0,0,0,0,0},
+                };
+
+        Matrix m  = new Matrix(m4x4);
+
+        //TODO rewrite static  buildReachabilityMatrix to dynamic
+//        Matrix out = CarpetUtils.buildReachabilityMatrix(m);
+//
+//
+//        System.out.println("4x4: ");
+//        CarpetUtils.printMatrix(out);
+
+        System.out.println("9x9: ");
+
+        CarpetUtils.printMatrix(CarpetUtils.buildReachabilityMatrix(new Matrix(m9x9)));
+    }
+
+
 
 }
