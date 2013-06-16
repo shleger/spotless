@@ -61,7 +61,7 @@
               </execution>
           </executions>
           <configuration>
-              <finalName>spotless-with-deps-</finalName>
+              <finalName>spotless-with-deps</finalName>
           </configuration>
           </plugin>
     </plugins>

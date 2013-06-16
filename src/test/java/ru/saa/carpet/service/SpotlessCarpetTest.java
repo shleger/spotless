@@ -14,7 +14,6 @@ import ru.saa.carpet.util.CarpetUtils;
 public class SpotlessCarpetTest {
 
 
-
     @Test
     public void matrixMultiplyNotOrGraph() {
 
@@ -22,7 +21,7 @@ public class SpotlessCarpetTest {
 
         Matrix a = new Matrix(mat, 4, 4);
         Matrix b = new Matrix(mat, 4, 4);
-        Matrix fin ;
+        Matrix fin;
         CarpetUtils.printMatrix(a);
 
         Matrix a2 = a.times(b);
@@ -39,7 +38,7 @@ public class SpotlessCarpetTest {
 
         CarpetUtils.printMatrix(fin);
 
-        Matrix m  = CarpetUtils.buildReachabilityMatrix(a);
+        Matrix m = CarpetUtils.buildReachabilityMatrix(a);
 
 //        CarpetUtils.printMatrix(m);
 
@@ -56,6 +55,21 @@ public class SpotlessCarpetTest {
         }
     }
 
-   
+
+    @Test
+    public void problem1() {
+        int sum = 0;
+
+        for (int i = 0; i < 1000; i++) {
+            if (i % 3 == 0 || i % 5 == 0) {
+                sum += i;
+            }
+
+        }
+
+        System.out.println(sum);
+    }
+
+
 
 }
