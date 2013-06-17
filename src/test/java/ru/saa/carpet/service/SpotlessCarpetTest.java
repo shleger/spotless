@@ -73,16 +73,30 @@ public class SpotlessCarpetTest {
         System.out.println(sum);
     }
 
+    /**
+     * kingjy7 said
+     * Here's a math explanation:
+     * Since you can only move right and down, it obviously takes 40 moves to get to the bottom right
+     * of the 20 by 20 square from the the top left. Of these forty moves, 20 must be down and 20 must be right.
+     * This means that of the 40 moves, you have to choose 20 to be "down", and the order does not matter.
+     * So the answer is 40 choose 20 = 137846528820.
+     */
 
     @Test
     public void problem15_1() {
-        Double d = 3.53452638E10;
 
-        System.out.println(d.longValue());
+        long i = 1;
+        long res = 1;
+        while (i <= 20) {
+            res = res * (i + 20) / i;
+            i++;
 
+        }
+
+        System.out.println(res);
     }
 
-        @Test
+    @Test
     public void problem15() {
 
 
@@ -141,9 +155,9 @@ public class SpotlessCarpetTest {
             for (int j = 0; j < mSize; j++) {
 
                 if (j > 0)
-                    mArr[arr[i][j-1]][  arr[i][j]  ] = 1;
-                if(i>0)
-                    mArr[arr[i-1][j]][  arr[i][j]  ] = 1;
+                    mArr[arr[i][j - 1]][arr[i][j]] = 1;
+                if (i > 0)
+                    mArr[arr[i - 1][j]][arr[i][j]] = 1;
 
 
             }
@@ -153,11 +167,11 @@ public class SpotlessCarpetTest {
 
 //        CarpetUtils.printMatrix(CarpetUtils.buildReachabilityMatrix(new Matrix(mArr)));
 
-        Matrix mMatrix  = CarpetUtils.buildReachabilityMatrix(new Matrix(mArr));
+        Matrix mMatrix = CarpetUtils.buildReachabilityMatrix(new Matrix(mArr));
 //
-        double[][] arrAnswer =   mMatrix.getArray();
+        double[][] arrAnswer = mMatrix.getArray();
 
-        System.out.println("All Paths= " + new BigDecimal(arrAnswer[0][doubleSize-1]));
+        System.out.println("All Paths= " + new BigDecimal(arrAnswer[0][doubleSize - 1]));
 
 
 //            21x21:
