@@ -138,9 +138,15 @@ public class SpotlessCarpetTest {
             }
 
 
-        CarpetUtils.printMatrix(new Matrix(mArr));
+//        CarpetUtils.printMatrix(new Matrix(mArr));
 
-        CarpetUtils.printMatrix(CarpetUtils.buildReachabilityMatrix(new Matrix(mArr)));
+//        CarpetUtils.printMatrix(CarpetUtils.buildReachabilityMatrix(new Matrix(mArr)));
+
+        Matrix mMatrix  = CarpetUtils.buildReachabilityMatrix(new Matrix(mArr));
+
+        double[][] arrAnswer =   mMatrix.getArray();
+
+        System.out.println("All Paths= " + arrAnswer[0][doubleSize-1]);
 
 
 
