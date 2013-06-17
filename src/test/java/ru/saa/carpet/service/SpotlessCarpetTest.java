@@ -77,26 +77,26 @@ public class SpotlessCarpetTest {
 
         double[][] m4x4 =
                 {
-                        {0,1,1,0},
-                        {0,0,0,1},
-                        {0,0,0,1},
-                        {0,0,0,0},
-        };
+                        {0, 1, 1, 0},
+                        {0, 0, 0, 1},
+                        {0, 0, 0, 1},
+                        {0, 0, 0, 0},
+                };
 
         double[][] m9x9 =
                 {      // 1 2 3 4 5 6 7 8 9
-                  /*1*/  {0,1,0,1,0,0,0,0,0},
-                  /*2*/  {0,0,1,0,1,0,0,0,0},
-                  /*3*/  {0,0,0,0,0,1,0,0,0},
-                  /*4*/  {0,0,0,0,1,0,1,0,0},
-                  /*5*/  {0,0,0,0,0,1,0,1,0},
-                  /*6*/  {0,0,0,0,0,0,0,0,1},
-                  /*7*/  {0,0,0,0,0,0,0,1,0},
-                  /*8*/  {0,0,0,0,0,0,0,0,1},
-                  /*9*/  {0,0,0,0,0,0,0,0,0},
+                  /*1*/  {0, 1, 0, 1, 0, 0, 0, 0, 0},
+                  /*2*/  {0, 0, 1, 0, 1, 0, 0, 0, 0},
+                  /*3*/  {0, 0, 0, 0, 0, 1, 0, 0, 0},
+                  /*4*/  {0, 0, 0, 0, 1, 0, 1, 0, 0},
+                  /*5*/  {0, 0, 0, 0, 0, 1, 0, 1, 0},
+                  /*6*/  {0, 0, 0, 0, 0, 0, 0, 0, 1},
+                  /*7*/  {0, 0, 0, 0, 0, 0, 0, 1, 0},
+                  /*8*/  {0, 0, 0, 0, 0, 0, 0, 0, 1},
+                  /*9*/  {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 };
 
-        Matrix m  = new Matrix(m4x4);
+        Matrix m = new Matrix(m4x4);
 
         //TODO rewrite static  buildReachabilityMatrix to dynamic
 //        Matrix out = CarpetUtils.buildReachabilityMatrix(m);
@@ -105,11 +105,46 @@ public class SpotlessCarpetTest {
 //        System.out.println("4x4: ");
 //        CarpetUtils.printMatrix(out);
 
-        System.out.println("9x9: ");
 
-        CarpetUtils.printMatrix(CarpetUtils.buildReachabilityMatrix(new Matrix(m9x9)));
+        // CarpetUtils.printMatrix(CarpetUtils.buildReachabilityMatrix(new Matrix(m9x9)));
+
+        int mSize = 3;
+        System.out.println(mSize + "x" + mSize + ": ");
+
+        int counter = 0;
+        int[][] arr = new int[mSize][mSize];
+
+        for (int i = 0; i < mSize; i++)
+            for (int j = 0; j < mSize; j++) {
+                arr[i][j] = counter++;
+
+            }
+
+
+        int doubleSize = mSize * mSize;
+
+        double[][] mArr = new double[doubleSize][doubleSize];
+
+
+        for (int i = 0; i < mSize; i++)
+            for (int j = 0; j < mSize; j++) {
+
+                if (j > 0)
+                    mArr[arr[i][j-1]][  arr[i][j]  ] = 1;
+                if(i>0)
+                    mArr[arr[i-1][j]][  arr[i][j]  ] = 1;
+
+
+            }
+
+
+        CarpetUtils.printMatrix(new Matrix(mArr));
+
+        CarpetUtils.printMatrix(CarpetUtils.buildReachabilityMatrix(new Matrix(mArr)));
+
+
+
     }
-
 
 
 }
