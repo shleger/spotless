@@ -5,6 +5,9 @@ import junit.framework.Assert;
 import org.junit.Test;
 import ru.saa.carpet.util.CarpetUtils;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
+
 /**
  * Created with IntelliJ IDEA.
  * User: saa
@@ -72,6 +75,14 @@ public class SpotlessCarpetTest {
 
 
     @Test
+    public void problem15_1() {
+        Double d = 3.53452638E10;
+
+        System.out.println(d.longValue());
+
+    }
+
+        @Test
     public void problem15() {
 
 
@@ -108,7 +119,7 @@ public class SpotlessCarpetTest {
 
         // CarpetUtils.printMatrix(CarpetUtils.buildReachabilityMatrix(new Matrix(m9x9)));
 
-        int mSize = 3;
+        int mSize = 21;
         System.out.println(mSize + "x" + mSize + ": ");
 
         int counter = 0;
@@ -143,12 +154,14 @@ public class SpotlessCarpetTest {
 //        CarpetUtils.printMatrix(CarpetUtils.buildReachabilityMatrix(new Matrix(mArr)));
 
         Matrix mMatrix  = CarpetUtils.buildReachabilityMatrix(new Matrix(mArr));
-
+//
         double[][] arrAnswer =   mMatrix.getArray();
 
-        System.out.println("All Paths= " + arrAnswer[0][doubleSize-1]);
+        System.out.println("All Paths= " + new BigDecimal(arrAnswer[0][doubleSize-1]));
 
 
+//            21x21:
+//            All Paths= 137846528820
 
     }
 
